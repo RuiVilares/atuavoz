@@ -1,0 +1,17 @@
+DROP TABLE IF EXISTS Admins;
+DROP TABLE IF EXISTS Proposals;
+
+CREATE TABLE Admins (
+  username VARCHAR(50) NOT NULL PRIMARY KEY,
+  password VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Proposals (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	title VARCHAR(255),
+	author VARCHAR(255),
+	description VARCHAR(10000),
+	date DATE,
+	validation INTEGER,
+	nVotes INTEGER
+);

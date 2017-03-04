@@ -39,7 +39,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2>A tua voz</h2>
+                <h2>Sobre</h2>
                 <p class="lead">Breve descrição d'A tua voz.</p>
             </div>
         </div>
@@ -58,15 +58,15 @@
                 <div class="row">
                   <form>
                     <div class="form-group">
-                      <input type="text" class="form-control" id="author" placeholder="Autor da proposta">
+                      <input type="text" class="form-control" id="inputAuthor" placeholder="Autor da proposta">
                     </div>
                     <div class="form-group">
-                      <input type="text" class="form-control" id="title" placeholder="Titulo da proposta">
+                      <input type="text" class="form-control" id="inputTitle" placeholder="Titulo da proposta">
                     </div>
                     <div class="form-group">
-                      <textarea class="form-control" rows="5" id="description" placeholder="Descrição da proposta"></textarea>
+                      <textarea class="form-control" rows="5" id="inputDescription" placeholder="Descrição da proposta"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-default">Submeter</button>
+                    <button id="submit" type="submit" class="btn btn-default">Submeter</button>
                   </form>
                 </div>
                 <!-- /.row (nested) -->
@@ -86,63 +86,45 @@
                 <h2>Propostas</h2>
                 <hr class="small">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-xs-offset-1 col-xs-11 col-md-offset-1 col-md-5 bg-primary">
                         <div class="portfolio-item">
-                          Titulo: ewdwdwd<br>
-                          Descrição: wdwwd<br>
-                          Autor: wdwdwd
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="portfolio-item">
-                          Titulo: sdwd<br>
-                          Descrição: adsd<br>
-                          Autor: aadad
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="portfolio-item">
-                          Titulo: ewdwdwd<br>
-                          Descrição: wdwwd<br>
-                          Autor: wdwdwd
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="portfolio-item">
-                          Titulo: sdwd<br>
-                          Descrição: adsd<br>
-                          Autor: aadad
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="portfolio-item">
-                          Titulo: ewdwdwd<br>
-                          Descrição: wdwwd<br>
-                          Autor: wdwdwd
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="portfolio-item">
-                          Titulo: sdwd<br>
-                          Descrição: adsd<br>
-                          Autor: aadad
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="portfolio-item">
-                          Titulo: ewdwdwd<br>
-                          Descrição: wdwwd<br>
-                          Autor: wdwdwd
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="portfolio-item">
-                          Titulo: sdwd<br>
-                          Descrição: adsd<br>
-                          Autor: aadad
+                          <div>
+                            <h3>Titulo</h3>
+                            <hr class="small">
+                          </div>
+                          <div class="text-justify">
+                            Descrição
+                            <p class="text-right">Autor</p>
+                            <hr class="small">
+                          </div>
+                          <div>
+                            <h4>X votos</h4>
+                            <button data-id="{{ proposal.id }}" type="submit" class="btn btn-default">Votar</button>
+                          </div>
                         </div>
                     </div>
                 </div>
+                {% for proposal in attribute(AcceptedProposals, 'proposals') %}
+                <div class="row">
+                    <div class="col-xs-offset-1 col-xs-11 col-md-offset-1 col-md-5 bg-primary">
+                        <div class="portfolio-item">
+                          <div>
+                            <h3>{{ proposal.title }}</h3>
+                            <hr class="small">
+                          </div>
+                          <div class="text-justify">
+                            {{ proposal.description }}
+                            <p class="text-right">{{ proposal.author }}</p>
+                            <hr class="small">
+                          </div>
+                          <div>
+                            <h4>{{ proposal.nVotes }} votos</h4>
+                            <button data-id="{{ proposal.id }}" type="submit" class="btn btn-default">Votar</button>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
             <!-- /.col-lg-10 -->
         </div>

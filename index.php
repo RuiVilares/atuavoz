@@ -1,6 +1,7 @@
 <?php
   require_once 'lib/Twig/Autoloader.php';
   Twig_Autoloader::register();
+  require_once 'api/proposals.php';
 
   $loader = new Twig_Loader_Filesystem('templates');
 
@@ -8,5 +9,5 @@
 
   $twig->addGlobal('isLoggedIn', false);
 
-  echo $twig->render('main.twig');
+  echo $twig->render('main.twig', array("AcceptedProposals" => getAcceptedProposal()));
 ?>
