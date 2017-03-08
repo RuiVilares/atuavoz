@@ -85,46 +85,32 @@
             <div class="col-lg-10 col-lg-offset-1 text-center">
                 <h2>Propostas</h2>
                 <hr class="small">
-                <div class="row">
-                    <div class="col-xs-offset-1 col-xs-11 col-md-offset-1 col-md-5 bg-primary">
-                        <div class="portfolio-item">
-                          <div>
-                            <h3>Titulo</h3>
-                            <hr class="small">
-                          </div>
-                          <div class="text-justify">
-                            Descrição
-                            <p class="text-right">Autor</p>
-                            <hr class="small">
-                          </div>
-                          <div>
-                            <h4>X votos</h4>
-                            <button data-id="{{ proposal.id }}" type="submit" class="btn btn-default">Votar</button>
-                          </div>
+                {% if attribute(AcceptedProposals, 'proposals') is empty %}
+                  <h4>Não há propostas aprovadas.</h4>
+                {% endif %}
+                {% if not attribute(AcceptedProposals, 'proposals') is empty %}
+                  <div class="row">
+                  {% for proposal in attribute(AcceptedProposals, 'proposals') %}
+                    <div class="proposal col-xs-offset-1 col-xs-10 col-md-offset-1 col-md-5 bg-primary">
+                      <div class="portfolio-item">
+                        <div>
+                          <h3>{{ proposal.title }}</h3>
+                          <hr class="small">
                         </div>
-                    </div>
-                </div>
-                {% for proposal in attribute(AcceptedProposals, 'proposals') %}
-                <div class="row">
-                    <div class="col-xs-offset-1 col-xs-11 col-md-offset-1 col-md-5 bg-primary">
-                        <div class="portfolio-item">
-                          <div>
-                            <h3>{{ proposal.title }}</h3>
-                            <hr class="small">
-                          </div>
-                          <div class="text-justify">
-                            {{ proposal.description }}
-                            <p class="text-right">{{ proposal.author }}</p>
-                            <hr class="small">
-                          </div>
-                          <div>
-                            <h4>{{ proposal.nVotes }} votos</h4>
-                            <button data-id="{{ proposal.id }}" type="submit" class="btn btn-default">Votar</button>
-                          </div>
+                        <div class="text-justify">
+                          {{ proposal.description }}
+                          <p class="text-right">{{ proposal.author }}</p>
+                          <hr class="small">
                         </div>
+                        <div>
+                          <h4>{{ proposal.nVotes }} votos</h4>
+                          <button data-id="{{ proposal.id }}" type="submit" class="vote btn btn-default">Votar</button>
+                        </div>
+                      </div>
                     </div>
-                </div>
-                {% endfor %}
+                  {% endfor %}
+                  </div>
+                {% endif %}
             </div>
             <!-- /.col-lg-10 -->
         </div>

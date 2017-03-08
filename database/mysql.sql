@@ -11,7 +11,6 @@ CREATE TABLE Proposals (
 	title VARCHAR(255),
 	author VARCHAR(255),
 	description VARCHAR(10000),
-	date DATE,
 	validation INTEGER,
 	nVotes INTEGER
 );

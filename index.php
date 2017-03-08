@@ -9,5 +9,18 @@
 
   $twig->addGlobal('isLoggedIn', false);
 
-  echo $twig->render('main.twig', array("AcceptedProposals" => getAcceptedProposal()));
+  $currentPage = isset($_GET['page']) ? $_GET['page'] : 'main';
+
+  switch ($currentPage) {
+    case 'main':
+        echo $twig->render('main.twig', array("AcceptedProposals" => getAcceptedProposals()));
+        break;
+    case 'admin':
+        echo $twig->render('admin.twig', array("WaitingProposals" => getWaitingProposals()));
+        break;
+    default:
+        echo $twig->render('main.twig', array("AcceptedProposals" => getAcceptedProposals()));
+        break;
+}
+
 ?>
