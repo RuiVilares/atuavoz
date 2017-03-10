@@ -97,4 +97,19 @@
     }
   }
 
+  function login($username, $password) {
+    global $db;
+
+    $stmt = $db->prepare('SELECT * FROM Admins WHERE Admins.username = :username AND Admins.password = :password');
+    $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+    $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+    try {
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result;
+    } catch (PDOException $e) {
+        return false;
+    }
+  }
+
 ?>

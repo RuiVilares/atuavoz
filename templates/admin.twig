@@ -1,9 +1,36 @@
 <!-- templates/admin.twig -->
 {% include 'includes/header.html' %}
 
+
+{% if isLoggedIn == false %}
+<section class="portfolio">
+    <div class="container">
+        <div class="row">
+          <div class="col-xs-offset-1 col-xs-10 col-md-offset-3 col-md-6">
+            <form>
+              <div class="form-group">
+                <input type="text" class="form-control" id="username" placeholder="Username">
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" id="password" placeholder="Password">
+              </div>
+              <button id="login" type="submit" class="btn btn-default">Log In</button>
+            </form>
+          </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if isLoggedIn == true %}
 <!-- Portfolio -->
 <section id="portfolio" class="portfolio">
     <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-lg-offset-1 text-center">
+          <button id="logout" type="submit" class="btn btn-default pull-right">Log Out</button>
+        </div>
+      </div>
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1 text-center">
                 <h2>Propostas</h2>
@@ -41,6 +68,7 @@
     </div>
     <!-- /.container -->
 </section>
+{% endif %}
 
 
 {% include 'includes/footer.html' %}

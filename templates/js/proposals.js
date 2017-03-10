@@ -89,7 +89,6 @@ function acceptProposal(e) {
 function rejectProposal(e) {
   e.preventDefault();
   var id = $(this).attr("data-id");
-  console.log(id);
 
   if (id == null || id == undefined) {
     swal("ERRO", "Ocorreu um erro. Tente novamente.", "error");
@@ -114,6 +113,50 @@ function rejectProposal(e) {
   }
 }
 
+function login(e) {
+  e.preventDefault();
+  var username = $("#username").val();
+  var password = $("#password").val();
+
+  if (username === "" || password === "") {
+    swal("ERRO", "Ocorreu um erro. Tente novamente.", "error");
+  } else {
+    var postData = {
+      "username": username,
+      "password": password
+    };
+    $.ajax({
+      type: "POST",
+      url: "api/login.php",
+      contentType: "application/json",
+      data: JSON.stringify(postData),
+      dataType: "json",
+      success: function(data) {
+        if (data.error)
+          swal("ERRO", "Ocorreu um erro. Tente novamente.", "error");
+        else {
+          location.reload();
+        }
+      }
+    });
+  }
+}
+
+function logout(e) {
+  e.preventDefault();
+  $.ajax({
+    type: "GET",
+    url: "api/logout.php",
+    success: function(data) {
+      if (data.error)
+        swal("ERRO", "Ocorreu um erro. Tente novamente.", "error");
+      else {
+        window.location.replace("./?page=main");
+      }
+    },
+  });
+}
+
 $("#submit").on('click', addProposal);
 
 $(".vote").on('click', voteProposal);
@@ -121,3 +164,7 @@ $(".vote").on('click', voteProposal);
 $(".accept").on('click', acceptProposal);
 
 $(".reject").on('click', rejectProposal);
+
+$("#login").on('click', login);
+
+$("#logout").on('click', logout);
