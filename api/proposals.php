@@ -7,7 +7,7 @@
       global $db;
       $validation = 0;
       $nVotes = 0;
-      $stmt = $db->prepare('INSERT INTO Proposals (author, title, description, validation, nVotes) VALUES (:author, :title, :description, :validation, :nVotes)');
+      $stmt = $db->prepare('INSERT INTO Proposals (title, author, description, validation, nVotes) VALUES (:title, :author, :description, :validation, :nVotes)');
       $stmt->bindParam(':author', $author, PDO::PARAM_STR);
       $stmt->bindParam(':title', $title, PDO::PARAM_STR);
       $stmt->bindParam(':description', $description, PDO::PARAM_STR);

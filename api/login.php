@@ -1,6 +1,6 @@
 <?php
   session_start();
-  include_once 'connection.php';
+  include_once('connection.php');
   include_once('proposals.php');
   $body = file_get_contents('php://input');
 
