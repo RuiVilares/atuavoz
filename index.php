@@ -23,7 +23,7 @@
         echo $twig->render('main.twig', array("AcceptedProposals" => getAcceptedProposals()));
         break;
     case 'admin':
-        echo $twig->render('admin.twig', array("WaitingProposals" => getWaitingProposals()), isLoggedIn);
+        echo $twig->render('admin.twig', array("WaitingProposals" => getWaitingProposals()), 'isLoggedIn');
         break;
     default:
         echo $twig->render('main.twig', array("AcceptedProposals" => getAcceptedProposals()));

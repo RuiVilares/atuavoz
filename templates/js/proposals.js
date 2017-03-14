@@ -27,7 +27,10 @@ function addProposal(e) {
           $('#inputAuthor').val('');
           swal("SUCESSO", "Proposta registada. Aguarda validação.", "success");
         }
-      }
+      },
+      error: function(data) {
+          console.log(data.responseText);
+        }
     });
   }
 }
@@ -137,7 +140,10 @@ function login(e) {
         else {
           location.reload();
         }
-      }
+      },
+      error: function(data) {
+          console.log(data.responseText);
+        }
     });
   }
 }
