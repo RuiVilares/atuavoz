@@ -4,7 +4,7 @@ function addProposal(e) {
   var description = $('#inputDescription').val();
   var author = $('#inputAuthor').val();
 
-  if (title === "" || description === "" || author === "") {
+  if (invalidInput(title, description, author)) {
     swal("ERRO", "Proposta inválida. Verifica os dados introduzidos.", "error");
   } else {
     var postData = {
@@ -32,6 +32,24 @@ function addProposal(e) {
           console.log(data.responseText);
         }
     });
+  }
+}
+
+function invalidInput(title, description, author){
+  if (title === "" || description === "" || author === ""){
+    return true;
+  }
+  else if (title.length > 100){
+    return true;
+  }
+  else if (author.length > 100){
+    return true;
+  }
+  else if (description.length > 10000){
+    return true;
+  }
+  else{
+    return false;
   }
 }
 
