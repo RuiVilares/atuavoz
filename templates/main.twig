@@ -109,7 +109,7 @@
                         <hr class="small">
                         <div>
                           <h4>{{ proposal.nVotes }} votos</h4>
-                          <button data-id="{{ proposal.id }}" type="submit" class="vote btn btn-default">Votar</button>
+                          <button {{ proposal.canVote ? '' : 'disabled ' }}data-id="{{ proposal.id }}" type="submit" class="vote btn btn-default">{{ proposal.canVote ? 'Votar' : 'Já votaste' }}</button>
                         </div>
                       </div>
                     </div>

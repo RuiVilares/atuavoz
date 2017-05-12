@@ -2,6 +2,7 @@
   include_once('connection.php');
 
   date_default_timezone_set('UTC');
+  define('COOKIE_VALIDITY', 86400);
 
   function createProposal($author, $title, $description) {
       global $db;
@@ -27,8 +28,14 @@
     try {
         $stmt->execute();
         $result = $stmt->fetchAll();
+        $proposals = [];
+        # Add a flag to each proposal, with a boolean indicating wether the user already voted
+        foreach ($result as $proposal) {
+            $proposal['canVote'] = userCanVote($proposal['id']);
+            $proposals[] = $proposal;
+        }
         $res = array();
-        $res["proposals"] = $result;
+        $res["proposals"] = $proposals;
     } catch (PDOException $e) {
         return $e->getMessage();
     }
@@ -85,12 +92,19 @@
         return false;
     }
 
+    if (!$result) {
+        # No proposal was found
+        return false;
+    }
+
     $nVotes = $result["nVotes"]+1;
     $stmt = $db->prepare('UPDATE Proposals SET nVotes = :nVotes WHERE Proposals.id = :id');
     $stmt->bindParam(':nVotes', $nVotes, PDO::PARAM_INT);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     try {
         $stmt->execute();
+        # Create a cookie indicating that the user voted for this proposal
+        setcookie(getCookieName($id), time(), time() + COOKIE_VALIDITY, '/');
         return true;
     } catch (PDOException $e) {
         return false;
@@ -110,6 +124,36 @@
     } catch (PDOException $e) {
         return false;
     }
+  }
+
+  /**
+   * Finds out if the user has voted
+   * @param $proposalID
+   * @return boolean
+   */
+  function userCanVote($proposalID)
+  {
+    if (!isset($_COOKIE[getCookieName($proposalID)])) {
+        # There isn't a cookie for this proposal
+        return true;
+    }
+    # There is a cookie, check the val
+    $val = $_COOKIE[getCookieName($proposalID)];
+    if (($val + COOKIE_VALIDITY) > time()) {
+        # Cookie is less than a day old
+        return false;
+    }
+    return true;
+  }
+
+/**
+ * Common access point to get the name of a cookie
+ * @param $id
+ * @return string
+ */
+  function getCookieName($id)
+  {
+      return 'Proposal' . $id;
   }
 
 ?>
