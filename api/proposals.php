@@ -24,7 +24,7 @@
 
   function getAcceptedProposals() {
     global $db;
-    $stmt = $db->prepare('SELECT * FROM Proposals WHERE validation ORDER BY nVotes DESC');
+    $stmt = $db->prepare('SELECT * FROM Proposals WHERE validation');
     try {
         $stmt->execute();
         $result = $stmt->fetchAll();
