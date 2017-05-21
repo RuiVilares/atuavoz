@@ -13,7 +13,10 @@
             <a href="#about" onclick=$("#menu-close").click();>Sobre</a>
         </li>
         <li>
-            <a href="#services" onclick=$("#menu-close").click();>Nova provosta</a>
+            <a href="#services" onclick=$("#menu-close").click();>Nova proposta</a>
+        </li>
+        <li>
+            <a href="#bestProposals" onclick=$("#menu-close").click();>Mais votadas</a>
         </li>
         <li>
             <a href="#portfolio" onclick=$("#menu-close").click();>Propostas</a>
@@ -82,34 +85,31 @@
 </section>
 
 <!-- Portfolio -->
-<section id="portfolio" class="portfolio">
+<section id="bestProposals" class="portfolio">
     <div class="container">
         <div class="row">
             <div class="text-center">
-                <h2>Propostas</h2>
+                <h2>Propostas mais votadas</h2>
                 <hr class="small">
-                {% if attribute(AcceptedProposals, 'proposals') is empty %}
-                  <h4>Não há propostas aprovadas.</h4>
+                {% if attribute(BestProposals, 'proposals') is empty %}
+                  <h4>Não há propostas votadas.</h4>
                 {% endif %}
-                {% if not attribute(AcceptedProposals, 'proposals') is empty %}
+                {% if not attribute(BestProposals, 'proposals') is empty %}
                   <div id="list-all-elements" class="col-md-offset-1 row">
-                  {% for proposal in attribute(AcceptedProposals, 'proposals') %}
-                    <div class="proposal col-xs-offset-1 col-xs-10 col-md-offset-1 col-md-4 bg-primary">
+                  {% for proposal in attribute(BestProposals, 'proposals') %}
+                    <div class="proposal col-xs-offset-1 col-xs-10 col-md-offset-1 col-md-4">
                       <div class="portfolio-item">
-                        <div>
-                          <h3>{{ proposal.title }}</h3>
-                          <hr class="small">
-                        </div>
-                        <div class="pre-scrollable scroll" style="height: 200px;">
-                          <div class="col-xs-11">
-                            <p class="text-justify">{{ proposal.description }}</p>
-                            <p class="text-right">{{ proposal.author }}</p>
-                          </div>
+                        <div class="pre-scrollable scroll" style="height: 200px;margin-top: 30px;">
+                            <h3>{{ proposal.title }}</h3>
+                            <hr class="small">
+                            <div class="col-xs-11">
+                              <p class="text-justify">{{ proposal.description }}</p>
+                              <p class="text-right">{{ proposal.author }}</p>
+                            </div>
                         </div>
                         <hr class="small">
                         <div>
                           <h4>{{ proposal.nVotes }} votos</h4>
-                          <button {{ proposal.canVote ? '' : 'disabled ' }}data-id="{{ proposal.id }}" type="submit" class="vote btn btn-default">{{ proposal.canVote ? 'Votar' : 'Já votaste' }}</button>
                         </div>
                       </div>
                     </div>
@@ -118,20 +118,51 @@
                 {% endif %}
             </div>
             <!-- /.col-lg-10 -->
-            <div class="row">
-              <div class="col-md-offset-3 col-xs-offset-3">
-                <div class="col-md-4 col-xs-4">
-                  <button id="prevPage" class="btn btn-default btn-block">Página anterior</button>
-                </div>
-                <div class="col-md-4 col-xs-4">
-                <button id="nextPage" class="col-md-4 btn btn-default btn-block">Página seguinte</button>
-                </div>
-              </div>
-            </div>
         </div>
         <!-- /.row -->
     </div>
     <!-- /.container -->
+</section>
+
+<!-- Portfolio -->
+<section id="portfolio" class="portfolio">
+  <div class="container">
+      <div class="row">
+          <div class="text-center">
+              <h2>Propostas</h2>
+              <hr class="small">
+              {% if attribute(AcceptedProposals, 'proposals') is empty %}
+                <h4>Não há propostas aprovadas.</h4>
+              {% endif %}
+              {% if not attribute(AcceptedProposals, 'proposals') is empty %}
+                <div id="list-all-elements" class="col-md-offset-1 row">
+                {% for proposal in attribute(AcceptedProposals, 'proposals') %}
+                  <div class="proposal col-xs-offset-1 col-xs-10 col-md-offset-1 col-md-4 bg-primary">
+                    <div class="portfolio-item">
+                      <div class="pre-scrollable scroll" style="height: 200px;margin-top: 30px;">
+                          <h3>{{ proposal.title }}</h3>
+                          <hr class="small">
+                          <div class="col-xs-11">
+                            <p class="text-justify">{{ proposal.description }}</p>
+                            <p class="text-right">{{ proposal.author }}</p>
+                          </div>
+                      </div>
+                      <hr class="small">
+                      <div>
+                        <h4>{{ proposal.nVotes }} votos</h4>
+                        <button {{ proposal.canVote ? '' : 'disabled ' }}data-id="{{ proposal.id }}" type="submit" class="vote btn btn-default">{{ proposal.canVote ? 'Votar' : 'Já votaste' }}</button>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+                </div>
+              {% endif %}
+          </div>
+          <!-- /.col-lg-10 -->
+      </div>
+      <!-- /.row -->
+  </div>
+  <!-- /.container -->
 </section>
 
 <!-- Footer -->
@@ -145,7 +176,7 @@
                     <br>Porto 4050-536</p>
                 <ul class="list-unstyled">
                     <li><i class="fa fa-phone fa-fw"></i>(+351) 22 605 1980</li>
-                    <li><i class="fa fa-envelope-o fa-fw"></i> <a href="mailto:jornalfedporto@gmail.com">jornalfedporto@gmail.com</a>
+                    <li><i class="fa fa-envelope-o fa-fw"></i> <a href="mailto:fedporto@juventudesocialista.pt">fedporto@juventudesocialista.pt</a>
                     </li>
                 </ul>
                 <br>
@@ -154,7 +185,7 @@
                         <a href="https://www.facebook.com/jsportodistrital"><i class="fa fa-facebook fa-fw fa-3x"></i></a>
                     </li>
                     <li>
-                        <a href="http://omensalista.pt/"><i class="fa fa-dribbble fa-fw fa-3x"></i></a>
+                        <a href="http://omensalista.pt/"><i class="fa fa-newspaper-o fa-fw fa-3x"></i></a>
                     </li>
                 </ul>
                 <hr class="small">

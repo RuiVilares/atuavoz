@@ -20,13 +20,13 @@
 
   switch ($currentPage) {
     case 'main':
-        echo $twig->render('main.twig', array("AcceptedProposals" => getAcceptedProposals()));
+        echo $twig->render('main.twig', array("BestProposals" => getBestProposals(), "AcceptedProposals" => getAcceptedProposals()));
         break;
     case 'admin':
         echo $twig->render('admin.twig', array("WaitingProposals" => getWaitingProposals()), 'isLoggedIn');
         break;
     default:
-        echo $twig->render('main.twig', array("AcceptedProposals" => getAcceptedProposals()));
+        echo $twig->render('main.twig', array("BestProposals" => getBestProposals(), "AcceptedProposals" => getAcceptedProposals()));
         break;
 }
 

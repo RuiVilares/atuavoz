@@ -42,6 +42,20 @@
     return $res;
   }
 
+  function getBestProposals() {
+    global $db;
+    $stmt = $db->prepare('SELECT * FROM Proposals WHERE validation AND nVotes > 0 ORDER BY nVotes DESC LIMIT 2');
+    try {
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        $res = array();
+        $res["proposals"] = $result;
+    } catch (PDOException $e) {
+        return $e->getMessage();
+    }
+    return $res;
+  }
+
   function getWaitingProposals() {
     global $db;
     $stmt = $db->prepare('SELECT * FROM Proposals WHERE not validation');
